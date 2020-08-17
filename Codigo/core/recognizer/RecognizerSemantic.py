@@ -79,14 +79,14 @@ class RecognizerSemantic(Transformer):
 
     def getvar(self,name):
 
-        pass#return self.variables[name]   
+        pass  
 
     def print(self,param):
-        pass#print("%s" % self.cleanParam(param))
+        pass
 
     def printvar(self,name):
 
-        pass#print("%s" % self.getvar(name))
+        pass
 
     def cleanParam(self,param):
 

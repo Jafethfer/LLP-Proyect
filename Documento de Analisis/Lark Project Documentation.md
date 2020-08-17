@@ -36,6 +36,11 @@ Ruby y Bash:
 
         * Al tener la gramática del lenguaje Ruby terminada, se encuentra un error al poder llamar a funciones no definidas o código perteneciente a otro Lenguaje, e.g.: `console.log("Hello World")` , por lo que se empieza a buscar la solución a éste error.
 
+        * Al tener la gramtica de bash terminada se comenzo a realzar pruebas de su funcionamiento, en el cual se encontro un error en el llamado de funciones para el
+        lenguaje bash, por lo tanto nuestro reconocedor no lo reconocia como lenguaje bash. El error se producia cuando se llamaba una función mandandoles parametros en su llamada. Esto era un error de recursividad en la gramatica. Este error solo se ocacionaba cuando se le pasaban parametros a la llamada de una función ya que sin parametros funcionaba correctamente.
+
+        * En las pruebas de bash se encontro un error en la impresion en bash "echo" cuando mandamos a imprimir el valor de una función. Se empezo a buscar la solución hasta declarar en la gramatica que se pueda imprimir el valor de una función.
+
 ## Lluvia de Ideas
 
 ¿Que cosas necesitabamos hacer para la parte de reconocimiento del proyecto?
