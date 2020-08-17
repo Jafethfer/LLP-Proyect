@@ -47,17 +47,92 @@ class javascriptSemantic (Transformer):
         else:
             raise Exception("No se puede operar (int or float) con string")
 
+    """
+    Resta dos parametros y verifica si se trata de int, float, identifiers o combinaciones de estos para regresar la resta con 
+    su tipo de dato respectivo
+    """
     def sub (self,param):
-        new,new2 = int(param[0]), int(param[2]) 
-        return float(new) - float(new2)
+        if(re.match(r"\d+(\.\d+)?", param[0]) and re.match(r"\d+(\.\d+)?", param[2])):
+            if(re.match(r"\d+",param[0]) and re.match(r"\d+", param[2])): 
+                return int(param[0]) - int(param[2])
+            else:
+                return float(param[0]) - float(param[2])
+        elif(re.match(r"\"[^\"]*\"", param[0]) and re.match(r"\"[^\"]*\"", param[2])):
+            raise Exception("No se pueden restar strings")
+        elif(re.match(r"[a-zA-Z]\w*", param[0]) and re.match(r"[a-zA-Z]\w*", param[2]) and self.currentfunc!=None):
+            if(re.match(r"\d+",self.getvar(str(self.currentfunc+"_"+param[0]))) and re.match(r"\d+", self.getvar(str(self.currentfunc+"_"+param[2])))): 
+                return int(self.getvar(str(self.currentfunc+"_"+param[0]))) - int(self.getvar(str(self.currentfunc+"_"+param[2])))
+            elif(re.match(r"\d+(\.\d+)?", self.getvar(str(self.currentfunc+"_"+param[0])) and re.match(r"\d+(\.\d+)?",  self.getvar(str(self.currentfunc+"_"+param[2]))))):
+                return float(self.getvar(str(self.currentfunc+"_"+param[0]))) - float(self.getvar(str(self.currentfunc+"_"+param[2])))
+            elif(re.match(r"\"[^\"]*\"", self.getvar(str(self.currentfunc+"_"+param[0]))) and re.match(r"\"[^\"]*\"", self.getvar(str(self.currentfunc+"_"+param[2])))):
+                raise Exception("No se pueden restar strings")
+        elif(re.match(r"[a-zA-Z]\w*", param[0]) and re.match(r"[a-zA-Z]\w*", param[2]) and self.currentfunc==None):
+            if(re.match(r"\d+",self.getvar(param[0]) and re.match(r"\d+", self.getvar(param[2])))): 
+                return int(self.getvar(param[0])) - int(self.getvar(param[2]))
+            elif(re.match(r"\d+(\.\d+)?", self.getvar(param[0])) and re.match(r"\d+(\.\d+)?",  self.getvar(param[2]))):
+                return float(self.getvar(param[0])) - float(self.getvar(param[2]))
+            elif(re.match(r"\"[^\"]*\"", self.getvar(param[0])) and re.match(r"\"[^\"]*\"", self.getvar(param[2]))):
+                raise Exception("No se pueden restar strings")   
+        else:
+            raise Exception("No se puede operar (int or float) con string")
 
+    """
+    Mutiplica dos parametros y verifica si se trata de int, float, identifiers o combinaciones de estos para regresar el producto con 
+    su tipo de dato respectivo
+    """
     def multi(self,param):
-        new,new2 = int(param[0]), int(param[2]) 
-        return (float(new)*float(new2))
+        if(re.match(r"\d+(\.\d+)?", param[0]) and re.match(r"\d+(\.\d+)?", param[2])):
+            if(re.match(r"\d+",param[0]) and re.match(r"\d+", param[2])): 
+                return int(param[0]) * int(param[2])
+            else:
+                return float(param[0]) * float(param[2])
+        elif(re.match(r"\"[^\"]*\"", param[0]) and re.match(r"\"[^\"]*\"", param[2])):
+            raise Exception("No se pueden multiplicar strings")
+        elif(re.match(r"[a-zA-Z]\w*", param[0]) and re.match(r"[a-zA-Z]\w*", param[2]) and self.currentfunc!=None):
+            if(re.match(r"\d+",self.getvar(str(self.currentfunc+"_"+param[0]))) and re.match(r"\d+", self.getvar(str(self.currentfunc+"_"+param[2])))): 
+                return int(self.getvar(str(self.currentfunc+"_"+param[0]))) * int(self.getvar(str(self.currentfunc+"_"+param[2])))
+            elif(re.match(r"\d+(\.\d+)?", self.getvar(str(self.currentfunc+"_"+param[0])) and re.match(r"\d+(\.\d+)?",  self.getvar(str(self.currentfunc+"_"+param[2]))))):
+                return float(self.getvar(str(self.currentfunc+"_"+param[0]))) * float(self.getvar(str(self.currentfunc+"_"+param[2])))
+            elif(re.match(r"\"[^\"]*\"", self.getvar(str(self.currentfunc+"_"+param[0]))) and re.match(r"\"[^\"]*\"", self.getvar(str(self.currentfunc+"_"+param[2])))):
+                raise Exception("No se pueden multiplicar strings")
+        elif(re.match(r"[a-zA-Z]\w*", param[0]) and re.match(r"[a-zA-Z]\w*", param[2]) and self.currentfunc==None):
+            if(re.match(r"\d+",self.getvar(param[0]) and re.match(r"\d+", self.getvar(param[2])))): 
+                return int(self.getvar(param[0])) * int(self.getvar(param[2]))
+            elif(re.match(r"\d+(\.\d+)?", self.getvar(param[0])) and re.match(r"\d+(\.\d+)?",  self.getvar(param[2]))):
+                return float(self.getvar(param[0])) * float(self.getvar(param[2]))
+            elif(re.match(r"\"[^\"]*\"", self.getvar(param[0])) and re.match(r"\"[^\"]*\"", self.getvar(param[2]))):
+                raise Exception("No se pueden multiplicar strings") 
+        else:
+            raise Exception("No se puede operar (int or float) con string")
 
+    """
+    Divide dos parametros y verifica si se trata de int, float, identifiers o combinaciones de estos para regresar el factor con 
+    su tipo de dato respectivo
+    """
     def div(self,param):
-        new,new2 = int(param[0]), int(param[2]) 
-        return (float(new)/float(new2))
+        if(re.match(r"\d+(\.\d+)?", param[0]) and re.match(r"\d+(\.\d+)?", param[2])):
+            if(re.match(r"\d+",param[0]) and re.match(r"\d+", param[2])): 
+                return int(param[0]) / int(param[2])
+            else:
+                return float(param[0]) / float(param[2])
+        elif(re.match(r"\"[^\"]*\"", param[0]) and re.match(r"\"[^\"]*\"", param[2])):
+            raise Exception("No se pueden dividir strings")
+        elif(re.match(r"[a-zA-Z]\w*", param[0]) and re.match(r"[a-zA-Z]\w*", param[2]) and self.currentfunc!=None):
+            if(re.match(r"\d+",self.getvar(str(self.currentfunc+"_"+param[0]))) and re.match(r"\d+", self.getvar(str(self.currentfunc+"_"+param[2])))): 
+                return int(self.getvar(str(self.currentfunc+"_"+param[0]))) / int(self.getvar(str(self.currentfunc+"_"+param[2])))
+            elif(re.match(r"\d+(\.\d+)?", self.getvar(str(self.currentfunc+"_"+param[0])) and re.match(r"\d+(\.\d+)?",  self.getvar(str(self.currentfunc+"_"+param[2]))))):
+                return float(self.getvar(str(self.currentfunc+"_"+param[0]))) / float(self.getvar(str(self.currentfunc+"_"+param[2])))
+            elif(re.match(r"\"[^\"]*\"", self.getvar(str(self.currentfunc+"_"+param[0]))) and re.match(r"\"[^\"]*\"", self.getvar(str(self.currentfunc+"_"+param[2])))):
+                raise Exception("No se pueden dividir strings")
+        elif(re.match(r"[a-zA-Z]\w*", param[0]) and re.match(r"[a-zA-Z]\w*", param[2]) and self.currentfunc==None):
+            if(re.match(r"\d+",self.getvar(param[0]) and re.match(r"\d+", self.getvar(param[2])))): 
+                return int(self.getvar(param[0])) / int(self.getvar(param[2]))
+            elif(re.match(r"\d+(\.\d+)?", self.getvar(param[0])) and re.match(r"\d+(\.\d+)?",  self.getvar(param[2]))):
+                return float(self.getvar(param[0])) / float(self.getvar(param[2]))
+            elif(re.match(r"\"[^\"]*\"", self.getvar(param[0])) and re.match(r"\"[^\"]*\"", self.getvar(param[2]))):
+                raise Exception("No se pueden dividir strings")
+        else:
+            raise Exception("No se puede operar (int or float) con string")
 
     #Imprime el length de un string o numero.
     def length(self,param):
