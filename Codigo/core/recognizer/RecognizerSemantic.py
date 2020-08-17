@@ -55,23 +55,23 @@ class RecognizerSemantic(Transformer):
 
     def sum(self,A,B):
 
-        pass#return float(A) + float(B) 
+        pass 
 
     def sub(self,A,B):
 
-        pass#return float(A) + float(B)
+        pass
 
     def mul(self,A,B):
 
-        pass#return float(A) * float(B)
+        pass
 
     def div(self,A,B):
 
-        pass#return float(A) / float(B)
+        pass
 
     def mod(self,A,B):
 
-        pass#return float(A) % float(B)
+        pass
 
     def assignvar(self,name,value):
 
