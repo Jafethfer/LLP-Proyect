@@ -56,16 +56,6 @@ javascriptGrammar = """
     ?infuncexp: cond+
         | while+
         | for+
-        | consolelog leftpar string rightpar eos -> consolelogfunc
-        | consoleerror leftpar string rightpar eos -> consoleerrorfunc
-        | consolelog leftpar identifier "." "length" rightpar eos -> consoleloglengthfunc
-        | consolelog leftpar string opsum identifier rightpar eos -> consolelogsifunc
-
-        | consolelog leftpar identifier rightpar eos -> consolelogidentfunc
-        | consolelog leftpar identifier "+" identifier rightpar eos -> consolelogident_altfunc
-
-        | consolelog leftpar arithmeticoperation rightpar eos -> consolelogfunc
-        | consolelog leftpar arithmeticoperation "+" arithmeticoperation rightpar eos -> consolelogatomfunc
         | varkeyword identifier opequals string eos 
         | varkeyword identifier opequals string opsum identifier eos 
         | varkeyword identifier opequals arithmeticoperation eos 
@@ -98,14 +88,6 @@ javascriptGrammar = """
 
     ?inif: consolelog leftpar string rightpar eos -> consolelogcond
         | consoleerror leftpar string rightpar eos -> consoleerrorcond
-        | consolelog leftpar identifier "." "length" rightpar eos -> consoleloglengthcond
-        | consolelog leftpar string opsum identifier rightpar eos -> consolelogsicond
-
-        | consolelog leftpar identifier rightpar eos -> consolelogidentcond
-        | consolelog leftpar identifier "+" identifier rightpar eos -> consolelogident_altcond
-
-        | consolelog leftpar arithmeticoperation rightpar eos -> consolelogcond
-        | consolelog leftpar arithmeticoperation "+" arithmeticoperation rightpar eos -> consolelogatomcond
         | cond
         | while
         | for
