@@ -203,10 +203,13 @@ class javascriptSemantic (Transformer):
 
     #Impresión de 'console.log' con concatenado de dos variables.
     def printvar_alt(self, param):
-        if(isinstance(self.getvar(param[2]),str) and isinstance(self.getvar(param[3]),str)):
-            print("%s %s" % (self.cleanParam(self.getvar(param[2])),self.cleanParam(self.getvar(param[3]))))
+        if(param[2] in self.variables and param[3] in self.variables):
+            if(re.match(r"\d+(\.\d+)?", self.getvar(param[2])) and re.match(r"\d+(\.\d+)?", self.getvar(param[3]))):
+                print("%s" % (float(self.getvar(param[2])) + float(self.getvar(param[3]))))
+            elif(re.match(r"\"[^\"]*\"", self.getvar(param[2])) and re.match(r"\"[^\"]*\"", self.getvar(param[3]))):
+                print("%s" % (self.getvar(param[2]) + self.getvar(param[3])))
         else:
-            print(int(self.getvar(param[2]))+int(self.getvar(param[3])))
+            raise Exception("Verifique las variables existan y esten instanciadas")
 
     #Limpia las ' "" ' y " '' " a la hora de impresión.
     def cleanParam(self, param):
