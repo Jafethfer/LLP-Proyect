@@ -76,7 +76,7 @@ class LanguageRecognizer:
     """
         Método encargado de realizar el análisis sintactico y semantico mediante el uso de Lark, de un contenido para comprobar si
         cumple con la gramática solicitada.
-        @author
+        @author eglopezl@unah.hn
         @param grammar Archivo que contiene la gramática que se quiere usar para el analisis.
         @param content El contenido que se quiere analizar.
         @return True si el contenido cumple con la gramática.
